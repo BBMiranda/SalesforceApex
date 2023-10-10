@@ -1,5 +1,19 @@
 public with sharing class DemonstraEstrutura {
-    public DemonstraEstrutura() {
+  
+  //CONSTANTES
+  private static final Double TAXA_IFO = 0.5;
+  private static Double TAXA_IFO_VARIANTE = 0.5;
+  eNum DiaDaSemana{
+    SEGUNDA,
+    TERCA,
+    QUARTA,
+    QUINTA,
+    SEXTA,
+    SABADO,
+    DOMINGO
+  }
+
+  public DemonstraEstrutura() {
 
     }
 
@@ -174,6 +188,182 @@ public with sharing class DemonstraEstrutura {
     //Criar uma variável mapa, que recebe um nome de uma pessoa, e armazena a idade, criar 4 registros, e recuperar a idade do terceiro registro mostrando em um system.debug
     Map<String, Integer> nomesIdadesMap = new Map<String,Integer>{'Maria' => 30, 'José' => 50, 'Tatiane' => 20, 'André' => 35};
     system.debug('A idade da terceira pessoa é: ' + nomesIdadesMap.get('Tatiane'));
+    
+    //ENUM - Enumeração
+    DiaDaSemana hoje = DiaDaSemana.SEGUNDA;
 
+  }
+
+  public static void condicionais(){
+  
+    //IF == Se
+    Integer num = 5;
+
+    if(num > 2){
+      system.debug('O número é maior que 2');
+    }
+
+    //ELSE IF + ELSE
+    Integer idade = 61;
+    //Se a idade for menor que 18, escrve que é criança
+    // se a idade for maior ou igual que 18 e menor do que 30 escrever você é jovem
+    // se não escrever você é adulto
+    if(idade < 18){
+      system.debug('Você é uma criança');  
+    } else if(idade >= 18 && idade < 30){
+      system.debug('Você é jovem');
+    } else {
+      if(idade > 60){
+        system.debug('Você é idoso');
+      }else{
+        system.debug('Você é adulto');
+      }
+    }
+
+    //SWITCH
+    // 0 = Domingo, 1 = Segunda, 2 = Terça, 3 = Quarta, 4 = Quinta, 5 = Sexta, 6 = Sábado
+    Integer dayWeek = 3;
+
+    switch on dayWeek{
+      when 0{
+        system.debug('Domingo');
+      }
+      when 1{
+        system.debug('Segunda');
+      }
+      when 2{
+        system.debug('Terça');
+      }
+      when 3{
+        system.debug('Quarta');
+      }
+      when 4{
+        system.debug('Quinta');
+      }
+      when 5{
+        system.debug('Sexta');
+      }
+      when 6{
+        system.debug('Sábado');
+      }
+      when else{
+        system.debug('Dia inválido');
+      }
+    }
+
+    //IF TERNÁRIO
+    Integer numero = 30;
+    String result = numero > 5 ? 'O número é maior que 5' : 'O número é menor que 5';
+
+    //TERNARIO CONDICÃO IDADE ACIMA
+    String textoIdade = idade < 18 ? 'Você é uma criança' : idade >= 18 && idade < 30 ? 'Você é jovem' : idade > 60 ? 'Você é idoso' : 'Você é adulto'; 
+    System.debug('textoIdade '+textoIdade);
+  }
+
+  //LOOPS
+  public static void loops(){
+    //FOR
+    for(Integer i = 0; i < 10; i++){
+      system.debug('O valor de i é: '+i);
+    }
+    //WHILE
+    Integer count = 1;
+    while(count <= 10){
+      system.debug('O valor de count é: '+count);
+      count++;
+    }
+    //DO WHILE
+    Integer counter = 0;
+    do{
+      system.debug('O valor de counter é: '+counter);
+      counter++;
+    }while(counter < 5);
+    //FOR EACH
+    for(Account acc : [SELECT Name FROM Account LIMIT 10]){
+      system.debug('O valor de acc é: '+acc.Name);
+    }
+
+    List<Integer> integerList = new List<Integer>{1,2,3,4,5,6,7,8,9,10};
+    for(Integer intList : integerList){
+      system.debug('O valor de int é: '+intList);
+    }
+  }
+
+  //OPERADORES
+  public static void operadores(){
+    //ARITMÉTICOS + - * / 
+    Integer exSoma = 10 + 10;
+    Integer exSubtracao = 10 - 5;
+    Integer exMultiplicacao = 10 * 10;
+    Integer exDivisao = 10 / 2;
+    
+    //ATRIBUIÇÃO =
+    Integer exAtribuicao = 10;
+
+    //COMPARAÇÃO == != > < >= <=
+    Integer exComparacao = 10;
+    if(exComparacao == 10){
+      system.debug('O valor de exComparacao é igual a 10');
+    }
+    if(exComparacao != 5){
+      system.debug('O valor de exComparacao é diferente de 5');
+    }
+    if(exComparacao > 5){
+      system.debug('O valor de exComparacao é maior que 5');
+    }
+    if(exComparacao < 15){
+      system.debug('O valor de exComparacao é menor que 15');
+    }
+    if(exComparacao >= 10){
+      system.debug('O valor de exComparacao é maior ou igual a 10');
+    }
+    if(exComparacao <= 10){
+      system.debug('O valor de exComparacao é menor ou igual a 10');
+    }
+    //LÓGICOS && || !
+    Integer exLogico = 10;
+    if(exLogico == 10 && exLogico > 5){
+      system.debug('O valor de exLogico é igual a 10 e maior que 5');
+    }
+    if(exLogico == 10 || exLogico < 5){
+      system.debug('O valor de exLogico é igual a 10 ou menor que 5');
+    }
+    //CONDICIONAIS ? :
+    Integer exCondicionais = 10;
+    String exCondicionaisString = exCondicionais > 5 ? 'O valor de exCondicionais é maior que 5' : 'O valor de exCondicionais é menor que 5';
+  }
+
+  //OPERADORES DE ATRIBUIÇÃO
+  // =
+  // +=
+  // -=
+  // *=
+  // /=
+  // %= pega o resto de um número de uma divisão
+
+
+  //FUNÇÕES E MÉTODOS
+
+  //Função para calcular a média de uma lista de números
+  //Anonymous
+  /* List<Double> doubleList = new List<Double>{10, 20, 5, 50};
+  Double num = DemonstraEstrutura.calculaMedia(doubleList);
+  System.debug('O Valor de num é: ' + num); */
+  public static Double calculaMedia(List<Double> numeros){
+    Double soma = 0;
+    for(Double num : numeros){
+      soma += num;
+    }
+    return soma / numeros.size();
+  }
+  /* 
+  modificador_de_acesso(public|private) tipo_de_retorno nome_do_metodo(parametros){
+    //lógica da função código
+    return igual_ao_tipo_de_retorno;
+  } */
+  
+  //Desafio: Fazer uma função, que recebe dois inteiros e retorna a soma deles.
+  public static Integer somaDoisNumeros(Integer num1, Integer num2){
+    return num1 + num2;
   }
 }
